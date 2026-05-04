@@ -1,0 +1,72 @@
+variable "vpc_cidr" {
+    description = "VPC name"
+    type = string
+  
+}
+
+variable "pubnet_names" {
+    description = "public subnet name"
+    type = list(string)
+  
+}
+
+variable "pubnet_specs" {
+    description = "public subnet specs"
+    type = map(object({
+        cidr_block = string
+        availability_zone = string
+        az = string
+        desc = string
+    }))
+  
+}  
+
+variable "prinet_names" {
+    description = "private subnet name"
+    type = list(string)
+  
+}
+
+variable "prinet_specs" {
+    description = "private subnet specs"
+    type = map(object({
+        cidr_block = string
+        availability_zone = string
+        az = string
+        desc = string
+    }))
+  
+}
+
+variable "prinet_az" {
+    type = set(string)
+}
+
+variable "prinet_desc" {
+    type = map(string)
+ 
+}
+
+variable "eks_cluster_names" {
+  description = "The name of the EKS cluster."
+  #type        = string
+  type        = list(string)
+  
+}
+
+variable "subnet_ids" {
+    description = "List of subnet IDs for the EKS cluster"
+    type = map(list(string))
+}
+
+variable "eks_version" {
+  description = "The Kubernetes version for the EKS cluster."
+  type        = string
+  
+}
+
+variable "eks_node_group_name" {
+  description = "The name of the EKS node group."
+  type        = string
+  
+}
