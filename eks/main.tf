@@ -36,14 +36,12 @@ resource "aws_eks_cluster" "eks_cluster_names" {
   }
 }
 
-resource "aws_eks_node_group" "eks_node_group_name" {
-  cluster_name    = aws_eks_cluster.eks_cluster_name.name
+resource "aws_eks_node_group" "eks_node_group_names" {
+  for_each = toset(var.eks_node_group_names)
+  node_group_name = each.value
+  cluster_name    = aws_eks_cluster.eks_cluster_names[each.value].name
   node_role_arn   = aws_iam_role.eks_node_group_role.arn
-  node_group_name = var.eks_node_group_name
-  subnet_ids      = [
-    aws_subnet.prisub_demo_prinetaz1-2.id,
-    aws_subnet.prisub_demo_prinetaz2-2.id,
-  ]
+  subnet_ids      = var.node_subnet_ids[each.value]
 
   scaling_config {
     desired_size = 1

@@ -17,9 +17,10 @@ module "roles" {
 module "eks" {
   source = "./eks"
     eks_cluster_names   = var.eks_cluster_names
-    eks_node_group_name = var.eks_node_group_name
+    eks_node_group_names = var.eks_node_group_names
     eks_version         = var.eks_version
     subnet_ids          = local.subnet_ids
+    node_subnet_ids     = local.node_subnet_ids
 
 }
 
@@ -31,6 +32,19 @@ locals {
       module.vpc.prisub_demo_prinetaz2_1_id
     ]
     prd_eks_cluster = [
+      module.vpc.prisub_demo_prinetaz1_2_id,
+      module.vpc.prisub_demo_prinetaz2_2_id
+    ]
+  }
+}
+
+locals {
+  node_subnet_ids = {
+    dev_eks_node = [
+      module.vpc.prisub_demo_prinetaz1_1_id,
+      module.vpc.prisub_demo_prinetaz2_1_id
+    ]
+    prd_eks_node = [
       module.vpc.prisub_demo_prinetaz1_2_id,
       module.vpc.prisub_demo_prinetaz2_2_id
     ]

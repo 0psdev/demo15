@@ -65,8 +65,8 @@ variable "eks_version" {
   
 }
 
-variable "eks_node_group_name" {
+variable "eks_node_group_names" {
   description = "The name of the EKS node group."
-  type        = string
+  type        = list(string)
   
 }
